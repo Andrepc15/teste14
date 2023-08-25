@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color:red;
+    font-family: Arial, sans-serif;
+  }
+
+  .image-container {
+    position: relative;
+    cursor: crosshair;
+  }
+
+  .error-mark {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .message {
+    text-align: center;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="image-container">
+  <img src="/imagem1.jpeg" alt="Find the Differences">
+  <div class="error-mark" style="top: 100px; left: 150px;"></div>
+  <div class="error-mark" style="top: 200px; left: 250px;"></div>
+  <div class="error-mark" style="top: 300px; left: 350px;"></div>
+  <!-- Add more error marks as needed -->
+</div>
+
+<div class="message">
+  <p>Parabéns! Você encontrou todas as diferenças em <span class="attempts">X</span> tentativas!</p>
+  <p>Espero que você se sinta melhor em breve!</p>
+</div>
+
+<script>
+  const errorMarks = document.querySelectorAll('.error-mark');
+  const message = document.querySelector('.message');
+  const attemptsDisplay = document.querySelector('.attempts');
+
+  let foundErrors = 0;
+  let attempts = 0;
+
+  errorMarks.forEach(mark => {
+    mark.addEventListener('click', () => {
+      if (!mark.classList.contains('found')) {
+        mark.style.display = 'none';
+        mark.classList.add('found');
+        foundErrors++;
+        attempts++;
+        attemptsDisplay.textContent = attempts;
+
+        if (foundErrors === errorMarks.length) {
+          message.style.display = 'block';
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
